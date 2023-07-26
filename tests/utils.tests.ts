@@ -1,5 +1,5 @@
 import { assertEquals, describe } from "./test.deps.ts";
-import { add } from "../sdk/utils.ts";
+import { add } from "../src/_exports.ts";
 
 describe("Utils Tests", () => {
   describe("Add Test", () => {
