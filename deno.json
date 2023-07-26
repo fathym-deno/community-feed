@@ -4,9 +4,10 @@
     "build:fmt": "deno fmt",
     "build:lint": "deno lint",
     "deploy": "deno task build && ftm git",
-    "npm:build": "deno run -A scripts/npm.build.ts",
+    "npm:build": "deno run -A ./scripts/npm.build.ts",
     "npm:publish": "npm publish ./build --access public",
-    "test": "deno test -A ./tests/tests.ts --coverage=cov"
+    "test": "deno test -A ./tests/tests.ts --coverage=cov",
+    "www": "deno run -A --watch=static/,routes/ ./www/dev.ts"
   },
   "imports": {
     "$dnt": "https://deno.land/x/dnt/mod.ts",
