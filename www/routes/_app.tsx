@@ -1,4 +1,5 @@
 import { AppProps } from "$fresh/server.ts";
+import { BasicLayout, Footer } from "@atomic/design";
 
 export default function App({ Component }: AppProps) {
   return (
@@ -9,7 +10,9 @@ export default function App({ Component }: AppProps) {
         <title>www</title>
       </head>
       <body>
-        <Component />
+        <BasicLayout class="bg-slate-700" footer={<Footer />}>
+          <Component />
+        </BasicLayout>
       </body>
     </html>
   );
