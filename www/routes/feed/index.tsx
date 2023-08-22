@@ -4,6 +4,7 @@ import { Action, ActionStyleTypes, FeedCard } from "@atomic/design";
 import { AddIcon, SubtractIcon } from "$fathym/atomic-icons";
 import { Handlers, PageProps } from "$fresh/server.ts";
 import { handler as feedSvc } from "../api/feed.ts";
+import { FeedCardList, FeedCardListProps } from "@atomic/design";
 
 export const handler: Handlers = {
   async GET(req, ctx) {
@@ -41,27 +42,27 @@ export default function Feed(props: PageProps): JSX.Element {
     },
   ];
 
+  const feedCardListProps: FeedCardListProps = {
+    cards: data.map((item: any, index: number) => ({
+      key: index,
+      username: item.username,
+      avatar: item.avatar,
+      timestamp: item.timestamp,
+      actions: actions,
+      class: "m-4 md:m-8",
+      children: item.content,
+    })),
+    loadMore: {
+      actionStyle: ActionStyleTypes.None,
+      class: "flex-grow",
+      href: "#load-more",
+      children: "Load More",
+    },
+  };
+
   return (
     <div>
-      {data.map((item, index) => (
-        <FeedCard
-          key={index}
-          username={item.username}
-          avatar={item.avatar}
-          timestamp={item.timestamp}
-          actions={actions}
-          class="m-4 md:m-8"
-        >
-          {item.content}
-        </FeedCard>
-      ))}
-      <Action
-        actionStyle={ActionStyleTypes.None}
-        class="flex-grow"
-        href="#load-more"
-      >
-        Load More
-      </Action>
+      <FeedCardList {...feedCardListProps} />
     </div>
   );
 }
