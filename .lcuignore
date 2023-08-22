@@ -1,6 +1,8 @@
 #$max 14000
 #import ./.gitignore
 
+rd/
+
 .git/
 package-lock.json
 
