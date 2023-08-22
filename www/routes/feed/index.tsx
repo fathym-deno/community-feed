@@ -1,7 +1,7 @@
 import { JSX } from "preact";
 import { useEffect, useState } from "preact/hooks";
 import { Action, ActionStyleTypes, FeedCard } from "@atomic/design";
-import { DiscussionIcon, LikedIcon, QuipIcon, VoteIcon } from "$fathym/atomic-icons";
+import { AddIcon, SubtractIcon } from "$fathym/atomic-icons";
 import { Handlers, PageProps } from "$fresh/server.ts";
 import { handler as feedSvc } from "../api/feed.ts";
 
@@ -14,11 +14,10 @@ export const handler: Handlers = {
 };
 
 export default function Feed(props: PageProps): JSX.Element {
-  const [data, setData] = useState([]);
+  // deno-lint-ignore no-explicit-any
+  const [data, setData] = useState<any[]>([]);
 
-  useEffect(() => {
-    setData(props.data);
-  }, [props.data]);
+  setData(props.data);
 
   const actionStyles = {
     actionStyle: ActionStyleTypes.None,
@@ -32,23 +31,13 @@ export default function Feed(props: PageProps): JSX.Element {
   const actions = [
     {
       ...actionStyles,
-      href: "#quip",
-      children: <QuipIcon {...iconStyles} />,
+      href: "#add",
+      children: <AddIcon {...iconStyles} />,
     },
     {
       ...actionStyles,
-      href: "#vote",
-      children: <VoteIcon {...iconStyles} />,
-    },
-    {
-      ...actionStyles,
-      href: "#discuss",
-      children: <DiscussionIcon {...iconStyles} />,
-    },
-    {
-      ...actionStyles,
-      href: "#like",
-      children: <LikedIcon {...iconStyles} />,
+      href: "#subtract",
+      children: <SubtractIcon {...iconStyles} />,
     },
   ];
 
@@ -57,10 +46,14 @@ export default function Feed(props: PageProps): JSX.Element {
       {data.map((item, index) => (
         <FeedCard
           key={index}
-          title={item.title}
-          content={item.content}
+          username={item.username}
+          avatar={item.avatar}
+          timestamp={item.timestamp}
           actions={actions}
-        />
+          class="m-4 md:m-8"
+        >
+          {item.content}
+        </FeedCard>
       ))}
       <Action
         actionStyle={ActionStyleTypes.None}

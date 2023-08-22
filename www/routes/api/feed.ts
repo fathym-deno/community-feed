@@ -1,7 +1,7 @@
 import { Handlers } from "$fresh/server.ts";
-import { Take } from "../../src/takes.interface.ts";
 
-const EXAMPLE_DATA: Take[] = [
+// deno-lint-ignore no-explicit-any
+const EXAMPLE_DATA: any[] = [
   {
     username: "John Doe",
     avatar: "https://i.imgur.com/1zvWYJL.jpg",
@@ -79,8 +79,7 @@ const EXAMPLE_DATA: Take[] = [
     avatar: "https://i.imgur.com/5JZJZJL.jpg",
     timestamp: "11 hours ago",
     userId: "10",
-    content:
-      "The build is taking forever, time to optimize the build process!",
+    content: "The build is taking forever, time to optimize the build process!",
   },
   {
     username: "Mike Johnson",
@@ -135,8 +134,7 @@ const EXAMPLE_DATA: Take[] = [
     avatar: "https://i.imgur.com/1zvWYJL.jpg",
     timestamp: "18 hours ago",
     userId: "17",
-    content:
-      "Just finished writing that new feature and it's looking great!",
+    content: "Just finished writing that new feature and it's looking great!",
   },
   {
     username: "Emily Davis",
