@@ -53,15 +53,15 @@ export default function Feed(props: PageProps): JSX.Element {
       children: item.content,
     })),
     loadMore: {
-      actionStyle: ActionStyleTypes.None,
-      class: "flex-grow",
+      actionStyle: ActionStyleTypes.Solid | ActionStyleTypes.Rounded,
+      class: "flex-grow max-w-sm text-center m-4 md:m-8",
       href: "#load-more",
       children: "Load More",
     },
   };
 
   return (
-    <div>
+    <div class="max-w-screen-md mx-auto flex">
       <FeedCardList {...feedCardListProps} />
     </div>
   );
