@@ -1,11 +1,11 @@
-import { CheckCircleIcon, ExclaimIcon, Icon, XCircleIcon } from "@atomic/design";
+import { JSX } from "preact";
 
-export default function Button() {
+export function Button(props: JSX.HTMLAttributes<HTMLButtonElement>) {
   return (
-    <>
-      <CheckCircleIcon />
-      <ExclaimIcon />
-      <XCircleIcon />
-    </>
+    <button
+      {...props}
+      class="px-2 py-1 border-gray-500 border-2 rounded bg-white hover:bg-gray-200 transition-colors"
+    >
+    </button>
   );
 }
