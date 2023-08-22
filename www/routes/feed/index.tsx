@@ -5,6 +5,8 @@ import { AddIcon, SubtractIcon } from "$fathym/atomic-icons";
 import { Handlers, PageProps } from "$fresh/server.ts";
 import { handler as feedSvc } from "../api/feed.ts";
 import { FeedCardList, FeedCardListProps } from "@atomic/design";
+import { PostWithFeed, PostWithFeedProps } from "@atomic/design";
+import { PostForm, PostFormProps } from "@atomic/design";
 
 export const handler: Handlers = {
   async GET(req, ctx) {
@@ -60,9 +62,18 @@ export default function Feed(props: PageProps): JSX.Element {
     },
   };
 
+  const postFormProps: PostFormProps = {
+    avatar: "path/to/avatar.png",
+  };
+
+  const postWithFeedProps: PostWithFeedProps = {
+    feedCardListProps: feedCardListProps,
+    postFormProps: postFormProps,
+  };
+
   return (
     <div class="max-w-screen-md mx-auto flex">
-      <FeedCardList {...feedCardListProps} />
+      <PostWithFeed {...postWithFeedProps} />
     </div>
   );
 }
