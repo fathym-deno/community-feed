@@ -1,12 +1,19 @@
 import { JSX } from "preact";
 import { useEffect, useState } from "preact/hooks";
-import { Action, ActionStyleTypes, FeedCard } from "@atomic/design";
-import { AddIcon, SubtractIcon } from "$fathym/atomic-icons";
+import {
+  Action,
+  ActionStyleTypes,
+  FeedCardList,
+  FeedCardListProps,
+  PostForm,
+  PostFormProps,
+  PostWithFeed,
+  PostWithFeedProps,
+} from "@atomic/design";
+import { BuildDetailsIcon, RepositoryIcon } from "$fathym/atomic-icons";
 import { Handlers, PageProps } from "$fresh/server.ts";
 import { handler as feedSvc } from "../api/feed.ts";
-import { FeedCardList, FeedCardListProps } from "@atomic/design";
-import { PostWithFeed, PostWithFeedProps } from "@atomic/design";
-import { PostForm, PostFormProps } from "@atomic/design";
+import InteractivePostWithFeed from "../../islands/InteractivePostWithFeed.tsx";
 
 export const handler: Handlers = {
   async GET(req, ctx) {
@@ -24,32 +31,44 @@ export default function Feed(props: PageProps): JSX.Element {
 
   const actionStyles = {
     actionStyle: ActionStyleTypes.None,
-    class: "flex-grow",
+    class: "flex-grow flex",
   };
 
   const iconStyles = {
-    class: "w-[24px] h-[24px] mx-auto",
+    class: "w-[24px] h-[24px] ml-2",
   };
 
   const actions = [
     {
       ...actionStyles,
-      href: "#add",
-      children: <AddIcon {...iconStyles} />,
+      href: "#build",
+      children: (
+        <>
+          <BuildDetailsIcon {...iconStyles} />
+
+          Build Details
+        </>
+      ),
     },
     {
       ...actionStyles,
-      href: "#subtract",
-      children: <SubtractIcon {...iconStyles} />,
+      href: "#open",
+      children: (
+        <>
+          <RepositoryIcon {...iconStyles} />
+
+          Open Repository
+        </>
+      ),
     },
   ];
 
   const feedCardListProps: FeedCardListProps = {
     cards: data.map((item: any, index: number) => ({
       key: index,
-      username: item.username,
+      title: <span class="font-bold">{item.username}</span>,
       avatar: item.avatar,
-      timestamp: item.timestamp,
+      subtitle: <span class="text-gray-500 text-sm">{item.timestamp}</span>,
       actions: actions,
       class: "m-4 md:m-8",
       children: item.content,
@@ -63,7 +82,8 @@ export default function Feed(props: PageProps): JSX.Element {
   };
 
   const postFormProps: PostFormProps = {
-    avatar: "path/to/avatar.png",
+    class: "mt-4 md:mt-8",
+    avatar: "https://i.imgur.com/1zvWYJL.jpg",
   };
 
   const postWithFeedProps: PostWithFeedProps = {

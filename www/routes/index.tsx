@@ -1,6 +1,6 @@
 import { Action } from "@atomic/design";
 import Counter from "../islands/Counter.tsx";
-import { AddIcon } from "$fathym/atomic-icons";
+import { RepositoryIcon } from "$fathym/atomic-icons";
 
 export default function Home() {
   return (
@@ -21,7 +21,7 @@ export default function Home() {
       </div>
       <Action>
         <>
-          <AddIcon class="w-[24px] h-[24px] inline" />
+          <RepositoryIcon class="w-[24px] h-[24px] inline" />
           1
         </>
       </Action>
