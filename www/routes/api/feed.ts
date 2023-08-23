@@ -1,12 +1,21 @@
 import { Handlers } from "$fresh/server.ts";
 import { BuildFeedCardProps } from "@atomic/design";
 
+export interface BuildFeedCardProps {
+  username: string;
+  avatar: string;
+  timestamp: string;
+  content: string;
+  repository: string;
+  buildNumber: number;
+  buildStatus: string;
+}
+
 const EXAMPLE_DATA: BuildFeedCardProps[] = [
   {
     username: "John Doe",
     avatar: "https://i.imgur.com/1zvWYJL.jpg",
     timestamp: "2 hours ago",
-    userId: "1",
     content: "Finally got the build to pass after fixing that pesky syntax error!",
     repository: "fathym-atomic",
     buildNumber: 1,
@@ -16,7 +25,6 @@ const EXAMPLE_DATA: BuildFeedCardProps[] = [
     username: "Jane Smith",
     avatar: "https://i.imgur.com/5JZJZJL.jpg",
     timestamp: "3 hours ago",
-    userId: "2",
     content: "Deployed the latest version of the app to production and everything is working smoothly!",
     repository: "fathym-atomic",
     buildNumber: 2,
@@ -26,7 +34,6 @@ const EXAMPLE_DATA: BuildFeedCardProps[] = [
     username: "Bob Johnson",
     avatar: "https://i.imgur.com/5JZJZJL.jpg",
     timestamp: "4 hours ago",
-    userId: "3",
     content: "The tests are failing again, time to roll up my sleeves and debug!",
     repository: "fathym-atomic",
     buildNumber: 3,
@@ -36,7 +43,6 @@ const EXAMPLE_DATA: BuildFeedCardProps[] = [
     username: "Alice Lee",
     avatar: "https://i.imgur.com/1zvWYJL.jpg",
     timestamp: "5 hours ago",
-    userId: "4",
     content: "Just finished refactoring the codebase and it's looking much cleaner now!",
     repository: "fathym-atomic",
     buildNumber: 4,
@@ -46,7 +52,6 @@ const EXAMPLE_DATA: BuildFeedCardProps[] = [
     username: "Mark Davis",
     avatar: "https://i.imgur.com/5JZJZJL.jpg",
     timestamp: "6 hours ago",
-    userId: "5",
     content: "The build failed again, but this time I know exactly what's causing it!",
     repository: "fathym-atomic",
     buildNumber: 5,
@@ -56,7 +61,6 @@ const EXAMPLE_DATA: BuildFeedCardProps[] = [
     username: "Sarah Kim",
     avatar: "https://i.imgur.com/5JZJZJL.jpg",
     timestamp: "7 hours ago",
-    userId: "6",
     content: "Spent the day optimizing the database queries and the app is running much faster now!",
     repository: "fathym-atomic",
     buildNumber: 6,
@@ -66,7 +70,6 @@ const EXAMPLE_DATA: BuildFeedCardProps[] = [
     username: "Tom Wilson",
     avatar: "https://i.imgur.com/1zvWYJL.jpg",
     timestamp: "8 hours ago",
-    userId: "7",
     content: "The deployment failed due to a network issue, but we're working on fixing it!",
     repository: "fathym-atomic",
     buildNumber: 7,
@@ -76,7 +79,6 @@ const EXAMPLE_DATA: BuildFeedCardProps[] = [
     username: "Emily Chen",
     avatar: "https://i.imgur.com/5JZJZJL.jpg",
     timestamp: "9 hours ago",
-    userId: "8",
     content: "The tests are passing again after fixing that edge case that was causing issues!",
     repository: "fathym-atomic",
     buildNumber: 8,
@@ -86,7 +88,6 @@ const EXAMPLE_DATA: BuildFeedCardProps[] = [
     username: "David Brown",
     avatar: "https://i.imgur.com/1zvWYJL.jpg",
     timestamp: "10 hours ago",
-    userId: "9",
     content: "Just finished implementing that new feature and it's looking great!",
     repository: "fathym-atomic",
     buildNumber: 9,
@@ -96,7 +97,6 @@ const EXAMPLE_DATA: BuildFeedCardProps[] = [
     username: "Karen Lee",
     avatar: "https://i.imgur.com/5JZJZJL.jpg",
     timestamp: "11 hours ago",
-    userId: "10",
     content: "The build is taking forever, time to optimize the build process!",
     repository: "fathym-atomic",
     buildNumber: 10,
@@ -106,7 +106,6 @@ const EXAMPLE_DATA: BuildFeedCardProps[] = [
     username: "Mike Johnson",
     avatar: "https://i.imgur.com/1zvWYJL.jpg",
     timestamp: "12 hours ago",
-    userId: "11",
     content: "The deployment is taking longer than expected, but we're making progress!",
     repository: "fathym-atomic",
     buildNumber: 11,
@@ -116,7 +115,6 @@ const EXAMPLE_DATA: BuildFeedCardProps[] = [
     username: "Linda Davis",
     avatar: "https://i.imgur.com/5JZJZJL.jpg",
     timestamp: "13 hours ago",
-    userId: "12",
     content: "The tests are failing again, but this time it's due to a new bug that we need to fix!",
     repository: "fathym-atomic",
     buildNumber: 12,
@@ -126,7 +124,6 @@ const EXAMPLE_DATA: BuildFeedCardProps[] = [
     username: "Chris Kim",
     avatar: "https://i.imgur.com/1zvWYJL.jpg",
     timestamp: "14 hours ago",
-    userId: "13",
     content: "Just finished writing that new script that automates the deployment process!",
     repository: "fathym-atomic",
     buildNumber: 13,
@@ -136,7 +133,6 @@ const EXAMPLE_DATA: BuildFeedCardProps[] = [
     username: "Jessica Lee",
     avatar: "https://i.imgur.com/5JZJZJL.jpg",
     timestamp: "15 hours ago",
-    userId: "14",
     content: "The build is failing due to a dependency issue, time to update the dependencies!",
     repository: "fathym-atomic",
     buildNumber: 14,
@@ -146,7 +142,6 @@ const EXAMPLE_DATA: BuildFeedCardProps[] = [
     username: "Steve Brown",
     avatar: "https://i.imgur.com/1zvWYJL.jpg",
     timestamp: "16 hours ago",
-    userId: "15",
     content: "The deployment is finally complete and everything is working as expected!",
     repository: "fathym-atomic",
     buildNumber: 15,
@@ -156,7 +151,6 @@ const EXAMPLE_DATA: BuildFeedCardProps[] = [
     username: "Rachel Johnson",
     avatar: "https://i.imgur.com/5JZJZJL.jpg",
     timestamp: "17 hours ago",
-    userId: "16",
     content: "The tests are passing again after fixing that bug that was causing issues!",
     repository: "fathym-atomic",
     buildNumber: 16,
@@ -166,7 +160,6 @@ const EXAMPLE_DATA: BuildFeedCardProps[] = [
     username: "Tom Lee",
     avatar: "https://i.imgur.com/1zvWYJL.jpg",
     timestamp: "18 hours ago",
-    userId: "17",
     content: "Just finished writing that new feature and it's looking great!",
     repository: "fathym-atomic",
     buildNumber: 17,
@@ -176,7 +169,6 @@ const EXAMPLE_DATA: BuildFeedCardProps[] = [
     username: "Emily Davis",
     avatar: "https://i.imgur.com/5JZJZJL.jpg",
     timestamp: "19 hours ago",
-    userId: "18",
     content: "The build is taking longer than expected, but we're making progress!",
     repository: "fathym-atomic",
     buildNumber: 18,
@@ -186,7 +178,6 @@ const EXAMPLE_DATA: BuildFeedCardProps[] = [
     username: "David Kim",
     avatar: "https://i.imgur.com/1zvWYJL.jpg",
     timestamp: "20 hours ago",
-    userId: "19",
     content: "The deployment failed due to a configuration issue, but we're working on fixing it!",
     repository: "fathym-atomic",
     buildNumber: 19,
@@ -196,7 +187,6 @@ const EXAMPLE_DATA: BuildFeedCardProps[] = [
     username: "Karen Johnson",
     avatar: "https://i.imgur.com/5JZJZJL.jpg",
     timestamp: "21 hours ago",
-    userId: "20",
     content: "The tests are failing again, but this time it's due to a new bug that we need to fix!",
     repository: "fathym-atomic",
     buildNumber: 20,
