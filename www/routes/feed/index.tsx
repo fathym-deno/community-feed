@@ -3,8 +3,11 @@ import { useEffect, useState } from "preact/hooks";
 import {
   Action,
   ActionStyleTypes,
+  BuildFeedCard,
+  FeedCard,
   FeedCardList,
   FeedCardListProps,
+  FeedCardProps,
   PostForm,
   PostFormProps,
   PostWithFeed,
@@ -64,15 +67,23 @@ export default function Feed(props: PageProps): JSX.Element {
   ];
 
   const feedCardListProps: FeedCardListProps = {
-    cards: data.map((item: any, index: number) => ({
-      key: index,
-      title: <span class="font-bold">{item.username}</span>,
-      avatar: item.avatar,
-      subtitle: <span class="text-gray-500 text-sm">{item.timestamp}</span>,
-      actions: actions,
-      class: "m-4 md:m-8",
-      children: item.content,
-    })),
+    cards: data.map((item: any, index: number) => (
+      <BuildFeedCard
+        {...{
+          key: index,
+          title: <span class="font-bold">{item.username}</span>,
+          avatar: item.avatar,
+          username: "mcgear",
+          repository: "@iot-ensemble/public-web-blog@integration",
+          buildNumber: 46,
+          timestamp: item.timestamp,
+          buildStatus: "Success",
+          actions: actions,
+          class: "m-4 md:m-8",
+          children: item.content,
+        }}
+      />
+    )),
     loadMore: {
       actionStyle: ActionStyleTypes.Solid | ActionStyleTypes.Rounded,
       class: "flex-grow max-w-sm text-center m-4 md:m-8",
