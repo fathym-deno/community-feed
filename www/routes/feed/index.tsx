@@ -14,7 +14,7 @@ import {
   PostWithFeed,
   PostWithFeedProps,
 } from "@atomic/design";
-import { BuildDetailsIcon, RepositoryIcon } from "$fathym/atomic-icons";
+import { BuildDetailsIcon, Icon, RepositoryIcon } from "$fathym/atomic-icons";
 import { Handlers, PageProps } from "$fresh/server.ts";
 import { handler as feedSvc } from "../api/feed.ts";
 import InteractivePostWithFeed from "../../islands/InteractivePostWithFeed.tsx";
@@ -34,31 +34,6 @@ export const handler: Handlers = {
       class: "w-[24px] h-[24px] ml-2",
     };
 
-    const actions = [
-      {
-        ...actionStyles,
-        href: "#build",
-        children: (
-          <>
-            <BuildDetailsIcon {...iconStyles} />
-
-            Build Details
-          </>
-        ),
-      },
-      {
-        ...actionStyles,
-        href: "#open",
-        children: (
-          <>
-            <RepositoryIcon {...iconStyles} />
-
-            Open Repository
-          </>
-        ),
-      },
-    ];
-
     return ctx.render(
       // deno-lint-ignore no-explicit-any
       feedData.Items.map((item: Record<string, any>, index: number) => {
@@ -66,11 +41,31 @@ export const handler: Handlers = {
           ? item.Contributors[0].UserImage
           : item.Avatar;
 
+        // deno-lint-ignore no-explicit-any
+        const actions = item.Actions.map((action: any) => {
+          return {
+            ...actionStyles,
+            href: action.Action,
+            target: "_blank",
+            children: (
+              <>
+                <Icon
+                  {...iconStyles}
+                  icon={action.Icon}
+                  src="./iconset/icons"
+                />
+
+                {action.Text}
+              </>
+            ),
+          };
+        });
+
         return {
           title: <span class="font-bold">{item.Title}</span>,
           repository: item.Subtitle,
-          actions: actions,
           subtext: item.Subtext,
+          actions: actions,
           avatar: avatar,
           key: index,
           class: "m-4 md:m-8",

@@ -4,6 +4,8 @@ export const curIconSetConfig: IconSetConfig = {
   IconMap: {
     "build-details":
       "https://api.iconify.design/material-symbols:build-outline.svg",
+    "plumbing": "https://api.iconify.design/material-symbols:build-outline.svg",
+    "code": "https://api.iconify.design/mdi:source-repository.svg",
     "repository": "https://api.iconify.design/mdi:source-repository.svg",
   },
   Optimize: true,
