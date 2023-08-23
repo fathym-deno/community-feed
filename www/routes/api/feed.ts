@@ -18,7 +18,7 @@ const EXAMPLE_DATA: BuildFeedCardProps[] = [
       "Finally got the build to pass after fixing that pesky syntax error!",
     children: "Children 1",
     username: "John Doe",
-    avatar: "https://i.imgur.com/1zvWYJL.jpg",
+    avatar: "https://github.com/mcgear.png",
     timestamp: "2 hours ago",
     repository: "fathym-atomic",
     buildNumber: 1,
