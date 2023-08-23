@@ -4,6 +4,7 @@ import {
   Action,
   ActionStyleTypes,
   BuildFeedCard,
+  BuildFeedCardProps,
   FeedCard,
   FeedCardList,
   FeedCardListProps,
@@ -27,8 +28,7 @@ export const handler: Handlers = {
 };
 
 export default function Feed(props: PageProps): JSX.Element {
-  // deno-lint-ignore no-explicit-any
-  const [data, setData] = useState<any[]>([]);
+  const [data, setData] = useState<BuildFeedCardProps[]>([]);
 
   setData(props.data);
 
@@ -67,21 +67,14 @@ export default function Feed(props: PageProps): JSX.Element {
   ];
 
   const feedCardListProps: FeedCardListProps = {
-    cards: data.map((item: any, index: number) => (
+    cards: data.map((item: BuildFeedCardProps, index: number) => (
       <BuildFeedCard
-        {...{
+        {...item,
           key: index,
           title: <span class="font-bold">{item.username}</span>,
-          avatar: item.avatar,
-          username: "mcgear",
-          repository: "@iot-ensemble/public-web-blog@integration",
-          buildNumber: 46,
-          timestamp: item.timestamp,
-          buildStatus: "Success",
           actions: actions,
           class: "m-4 md:m-8",
-          children: item.content,
-        }}
+        }
       />
     )),
     loadMore: {
