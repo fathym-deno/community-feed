@@ -43,9 +43,16 @@ export const handler: Handlers = {
 
         // deno-lint-ignore no-explicit-any
         const actions = item.Actions.map((action: any) => {
+          if (action.Action.startsWith("./")) {
+            action.Action = action.Action.replace("./", "/");
+          }
+          const href = action.Action.startsWith("/")
+            ? `https://www.fathym.com${action.Action}`
+            : action.Action;
+
           return {
             ...actionStyles,
-            href: action.Action,
+            href,
             target: "_blank",
             children: (
               <>
@@ -101,7 +108,7 @@ export default function Feed(props: PageProps): JSX.Element {
 
   const postFormProps: PostFormProps = {
     class: "mt-4 md:mt-8",
-    avatar: "https://i.imgur.com/1zvWYJL.jpg",
+    avatar: "https://github.com/mcgear.png",
   };
 
   const postWithFeedProps: PostWithFeedProps = {
