@@ -236,30 +236,34 @@ export const handler: Handlers = {
   async GET(req, ctx) {
     const reqUrl = new URL(req.url);
 
-    const page = reqUrl.searchParams.get("page");
-    const pageSize = reqUrl.searchParams.get("pageSize");
-    const types = reqUrl.searchParams.get("types");
-    const project = reqUrl.searchParams.get("project");
-    const apps = reqUrl.searchParams.get("applications");
+    const page = reqUrl.searchParams.get("page") || 1;
+    const pageSize = reqUrl.searchParams.get("pageSize") || 100;
+    const types = reqUrl.searchParams.get("types") || [];
+    const project = reqUrl.searchParams.get("project") || "";
+    const apps = reqUrl.searchParams.get("applications") || "";
 
-    const apiRoot = Deno.env.get("API_ROOT");
-    const functionsKey = Deno.env.get("FUNCTIONS_KEY");
+    const apiRoot = Deno.env.get("LOWCODEUNIT_API_ROOT")!;
+    const apiKeyHeader = Deno.env.get("LOWCODEUNIT_API_KEY_HEADER")!;
+    const apiKey = Deno.env.get("LOWCODEUNIT_API_KEY")!;
+    const entLookup = Deno.env.get("ENT_LOOKUP")!;
 
     const url =
-      `${apiRoot}/api/lowcodeunit/userfeed?page=${page}&pageSize=${pageSize}&types=${types}&project=${project}&applications=${apps}`;
+      `${apiRoot}/userfeed?page=${page}&pageSize=${pageSize}&types=${types}&project=${project}&applications=${apps}`;
 
     const response = await fetch(url, {
       method: "GET",
       headers: {
-        "x-functions-key": functionsKey,
+        [apiKeyHeader]: apiKey,
+        "lcu-ent-lookup": entLookup,
+        "x-ms-client-principal-id": "michael.gearhardt@fathym.com",
       } as HeadersInit,
     });
+
+    const data = await response.json();
 
     if (!response.ok) {
       throw new Error("Failed to fetch user feed");
     }
-
-    const data = await response.json();
 
     return new Response(JSON.stringify(data));
   },

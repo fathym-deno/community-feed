@@ -22,8 +22,61 @@ import InteractivePostWithFeed from "../../islands/InteractivePostWithFeed.tsx";
 export const handler: Handlers = {
   async GET(req, ctx) {
     const resp = await feedSvc.GET!(req, ctx);
+
     const feedData = await resp.json();
-    return ctx.render(feedData);
+
+    const actionStyles = {
+      actionStyle: ActionStyleTypes.None,
+      class: "flex-grow flex",
+    };
+
+    const iconStyles = {
+      class: "w-[24px] h-[24px] ml-2",
+    };
+
+    const actions = [
+      {
+        ...actionStyles,
+        href: "#build",
+        children: (
+          <>
+            <BuildDetailsIcon {...iconStyles} />
+
+            Build Details
+          </>
+        ),
+      },
+      {
+        ...actionStyles,
+        href: "#open",
+        children: (
+          <>
+            <RepositoryIcon {...iconStyles} />
+
+            Open Repository
+          </>
+        ),
+      },
+    ];
+
+    return ctx.render(
+      // deno-lint-ignore no-explicit-any
+      feedData.Items.map((item: Record<string, any>, index: number) => {
+        const avatar = item.Contributors
+          ? item.Contributors[0].UserImage
+          : item.Avatar;
+
+        return {
+          title: <span class="font-bold">{item.Title}</span>,
+          repository: item.Subtitle,
+          actions: actions,
+          subtext: item.Subtext,
+          avatar: avatar,
+          key: index,
+          class: "m-4 md:m-8",
+        };
+      }),
+    );
   },
 };
 
@@ -32,48 +85,8 @@ export default function Feed(props: PageProps): JSX.Element {
 
   setData(props.data);
 
-  const actionStyles = {
-    actionStyle: ActionStyleTypes.None,
-    class: "flex-grow flex",
-  };
-
-  const iconStyles = {
-    class: "w-[24px] h-[24px] ml-2",
-  };
-
-  const actions = [
-    {
-      ...actionStyles,
-      href: "#build",
-      children: (
-        <>
-          <BuildDetailsIcon {...iconStyles} />
-
-          Build Details
-        </>
-      ),
-    },
-    {
-      ...actionStyles,
-      href: "#open",
-      children: (
-        <>
-          <RepositoryIcon {...iconStyles} />
-
-          Open Repository
-        </>
-      ),
-    },
-  ];
-
-  const items = data.map((item: BuildFeedCardProps, index: number) => {
-    return {
-      ...item,
-      title: <span class="font-bold">{item.title}</span>,
-      key: index,
-      actions: actions,
-      class: "m-4 md:m-8",
-    };
+  const items = data.map((item: BuildFeedCardProps) => {
+    return item;
   });
 
   const feedCardListProps: FeedCardListProps = {
