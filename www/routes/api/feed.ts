@@ -1,17 +1,6 @@
 import { Handlers } from "$fresh/server.ts";
 import { BuildFeedCardProps } from "@atomic/design";
 
-export interface BuildFeedCardProps {
-  title: string;
-  children: string;
-  username: string;
-  avatar: string;
-  timestamp: string;
-  repository: string;
-  buildNumber: number;
-  buildStatus: string;
-}
-
 const EXAMPLE_DATA: BuildFeedCardProps[] = [
   {
     title:
