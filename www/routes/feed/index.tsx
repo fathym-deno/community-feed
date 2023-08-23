@@ -66,17 +66,22 @@ export default function Feed(props: PageProps): JSX.Element {
     },
   ];
 
+  const items = data.map((item: BuildFeedCardProps, index: number) => {
+    return {
+      ...item,
+      title: <span class="font-bold">{item.title}</span>,
+      key: index,
+      actions: actions,
+      class: "m-4 md:m-8",
+    };
+  });
+
   const feedCardListProps: FeedCardListProps = {
-    cards: data.map((item: BuildFeedCardProps, index: number) => (
-      <BuildFeedCard
-        {...item,
-          key: index,
-          title: <span class="font-bold">{item.username}</span>,
-          actions: actions,
-          class: "m-4 md:m-8",
-        }
-      />
-    )),
+    cards: (
+      <>
+        {items.map((item) => <BuildFeedCard {...item} />)}
+      </>
+    ),
     loadMore: {
       actionStyle: ActionStyleTypes.Solid | ActionStyleTypes.Rounded,
       class: "flex-grow max-w-sm text-center m-4 md:m-8",
