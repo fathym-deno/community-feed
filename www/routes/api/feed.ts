@@ -7,7 +7,6 @@ export interface BuildFeedCardProps {
   username: string;
   avatar: string;
   timestamp: string;
-  content: string;
   repository: string;
   buildNumber: number;
   buildStatus: string;
@@ -15,23 +14,21 @@ export interface BuildFeedCardProps {
 
 const EXAMPLE_DATA: BuildFeedCardProps[] = [
   {
-    title: "Title 1",
+    title: "Finally got the build to pass after fixing that pesky syntax error!",
     children: "Children 1",
     username: "John Doe",
     avatar: "https://i.imgur.com/1zvWYJL.jpg",
     timestamp: "2 hours ago",
-    content: "Finally got the build to pass after fixing that pesky syntax error!",
     repository: "fathym-atomic",
     buildNumber: 1,
     buildStatus: "Success"
   },
   {
-    title: "Title 2",
+    title: "Deployed the latest version of the app to production and everything is working smoothly!",
     children: "Children 2",
     username: "Jane Smith",
     avatar: "https://i.imgur.com/5JZJZJL.jpg",
     timestamp: "3 hours ago",
-    content: "Deployed the latest version of the app to production and everything is working smoothly!",
     repository: "fathym-atomic",
     buildNumber: 2,
     buildStatus: "Success"
