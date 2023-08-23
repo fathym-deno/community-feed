@@ -67,6 +67,7 @@ export const handler: Handlers = {
           subtext: item.Subtext,
           actions: actions,
           avatar: avatar,
+          timestamp: item.Timestamp,
           key: index,
           class: "m-4 md:m-8",
         };
