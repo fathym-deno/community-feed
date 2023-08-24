@@ -83,7 +83,7 @@ function loadFeedItems(feedData: any[]): BuildFeedCardProps[] {
   });
 }
 
-function loadAdvertisements(feedData: any[]): BuildFeedCardProps[] {
+function loadAdvertisements(feedData: any[]): JSX.Element[] {
   return feedData.map((item: any) => {
     const actions = item.Actions.map((action: any) => {
       return {
