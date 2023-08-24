@@ -1,23 +1,19 @@
 import { JSX } from "preact";
-import { useEffect, useState } from "preact/hooks";
+import { useState } from "preact/hooks";
 import {
-  Action,
   ActionStyleTypes,
   BuildFeedCard,
   BuildFeedCardProps,
-  FeedCard,
-  FeedCardList,
   FeedCardListProps,
-  FeedCardProps,
-  PostForm,
   PostFormProps,
   PostWithFeed,
   PostWithFeedProps,
+  Tab,
+  Tabs,
 } from "@atomic/design";
-import { BuildDetailsIcon, Icon, RepositoryIcon } from "$fathym/atomic-icons";
+import { Icon } from "$fathym/atomic-icons";
 import { Handlers, PageProps } from "$fresh/server.ts";
 import { handler as feedSvc } from "../api/feed.ts";
-import InteractivePostWithFeed from "../../islands/InteractivePostWithFeed.tsx";
 
 export const handler: Handlers = {
   async GET(req, ctx) {
@@ -46,6 +42,7 @@ export const handler: Handlers = {
           if (action.Action.startsWith("./")) {
             action.Action = action.Action.replace("./", "/");
           }
+
           const href = action.Action.startsWith("/")
             ? `https://www.fathym.com${action.Action}`
             : action.Action;
@@ -68,15 +65,28 @@ export const handler: Handlers = {
           };
         });
 
+        const tabs = item.Tabs
+          ? item.Tabs.map((tab: any) => {
+            return {
+              label: tab.Title,
+              content: (
+                <div dangerouslySetInnerHTML={{ __html: tab.Content }} />
+              ),
+            } as Tab;
+          })
+          : undefined;
+
         return {
           title: <span class="font-bold">{item.Title}</span>,
           repository: item.Subtitle,
           subtext: item.Subtext,
           actions: actions,
           avatar: avatar,
+          buildStatus: item.Status?.Message,
           timestamp: item.Timestamp,
           key: index,
           class: "m-4 md:m-8",
+          children: tabs && <Tabs tabs={tabs} />,
         };
       }),
     );
